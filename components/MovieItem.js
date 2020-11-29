@@ -1,10 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native'
-import movies from '../services/movies'
 
 export default function MovieItem(props) {
 
-    console.log(props)
     const movie = props.movie;
 
     return (

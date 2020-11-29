@@ -1,19 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, TextInput, Button, Text, FlatList} from 'react-native'
-import movies from '../services/movies'
 import MovieItem from './MovieItem';
+import getMoviesFromText from '../services/tmdb.connector'
 
 export default function Search() {
     
+    const [state, getMovies] = useState({
+      movies: [],
+    });
+    searchText = '';
+
+
+    function _loadFilms(){
+      if (searchText.length > 0) {
+        getMoviesFromText(searchText).then(data => getMovies({movies: data.results}));
+      }
+    }
+
+    function _searchTextChanged(text){
+      searchText = text;
+    }
+
     return (
       <View style={styles.container} >
         <Text style={styles.title}>MoviesAndMe</Text>
         <Text style={styles.text}>What movie would you like to watch tonight?</Text>
-        <TextInput style={styles.textinput} placeholder='Type the title' />
-        <Button style={styles.button} title='Search' onPress={() => {}} />
+        <TextInput style={styles.textinput} onChangeText={(text) => _searchTextChanged(text)} placeholder='Type the title' />
+        <Button style={styles.button} title='Search' onPress={() => _loadFilms()}/>
 
         <FlatList
-          data={movies}
+          data={state.movies}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => <MovieItem movie={item}/>}
           />
