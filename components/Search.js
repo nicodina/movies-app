@@ -19,10 +19,10 @@ export default function Search() {
         <Text style={styles.title}>MoviesAndMe</Text>
         <Text style={styles.text}>What movie would you like to watch tonight?</Text>
         <TextInput style={styles.textinput} onSubmitEditing={() => {
-          _searchMovie()
+          _loadFilms()
           }} onChangeText={(text) => _searchTextChanged(text)} placeholder='Type the title' />
         <Button style={styles.button} title='Search' onPress={() => {
-          _searchMovie();
+          _loadFilms();
           }}/>
 
         <FlatList
@@ -31,8 +31,6 @@ export default function Search() {
           onEndReachedThreshold={0.5}
           onEndReached={() => {
             console.log('onEndReached');
-            console.log(page);
-            console.log(totalPages);
             if (page < totalPages) {
               _loadFilms();
             }
@@ -44,21 +42,16 @@ export default function Search() {
       </View>
     );
     
-    function _searchMovie() {
-      const zero = 0;
+    function _cleanUp() {
       getMovies({
         movies: [],
       });
       setPage(0);
       setTotalPages(0);
-
-      _loadFilms();
     }
 
     function _loadFilms() {
       setIsLoading(true);
-      console.log("search text length: " + searchText.length)
-      console.log('AAAAAAA ' + page)
 
       if (searchText.length > 0) {
 
@@ -74,7 +67,8 @@ export default function Search() {
     }
 
     function _searchTextChanged(text) {
-      setSearchText(text)
+      setSearchText(text);
+      _cleanUp();
     }
 
     function _displayLoading() {
