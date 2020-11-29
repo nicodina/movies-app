@@ -1,21 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import './components/Search'
+import Search from './components/Search';
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Search />
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FED766',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text: {
+    fontSize: 34,
+    color: '#4D7EA8',
+  }
 });
