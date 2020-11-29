@@ -25,7 +25,7 @@ export default function Search() {
       <View style={styles.container} >
         <Text style={styles.title}>MoviesAndMe</Text>
         <Text style={styles.text}>What movie would you like to watch tonight?</Text>
-        <TextInput style={styles.textinput} onChangeText={(text) => _searchTextChanged(text)} placeholder='Type the title' />
+        <TextInput style={styles.textinput} onSubmitEditing={() => _loadFilms()} onChangeText={(text) => _searchTextChanged(text)} placeholder='Type the title' />
         <Button style={styles.button} title='Search' onPress={() => _loadFilms()}/>
 
         <FlatList
