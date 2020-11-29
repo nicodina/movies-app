@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, TextInput, Button, Text, FlatList} from 'react-native'
 import MovieItem from './MovieItem';
-import getMoviesFromText from '../services/tmdb.connector'
+import {getMoviesFromText} from '../services/tmdb.connector'
 
 export default function Search() {
     
