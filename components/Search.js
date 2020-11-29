@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, TextInput, Button, Text, FlatList} from 'react-native'
+import {StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator} from 'react-native'
 import MovieItem from './MovieItem';
 import {getMoviesFromText} from '../services/tmdb.connector'
 
@@ -7,18 +7,32 @@ export default function Search() {
     
     const [state, getMovies] = useState({
       movies: [],
+      isLoading: false,
     });
     searchText = '';
 
 
     function _loadFilms(){
+      getMovies({isLoading: true})
       if (searchText.length > 0) {
-        getMoviesFromText(searchText).then(data => getMovies({movies: data.results}));
+        getMoviesFromText(searchText).then(data => getMovies(
+          {movies: data.results, isLoading: false})
+        );
       }
     }
 
     function _searchTextChanged(text){
       searchText = text;
+    }
+
+    function _displayLoading() {
+      if (state.isLoading === true) {
+        return (
+          <View style={styles.loading_container}>
+            <ActivityIndicator size='large' />
+          </View>
+        )
+      }
     }
 
     return (
@@ -32,7 +46,9 @@ export default function Search() {
           data={state.movies}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => <MovieItem movie={item}/>}
-          />
+        />
+
+        {_displayLoading()}
       </View>
     );
 }
@@ -42,6 +58,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FED766',
     marginTop: 20
+  },
+  loading_container: {
+    flex: 1,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 100,
+    bottom: 0,
+    alignItems: "center",
+    justifyContent: "center"
   },
   title: {
     fontSize: 50,
