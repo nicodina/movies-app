@@ -7,3 +7,7 @@ export function getMoviesFromText(text) {
         .then((response) => response.json())
         .catch((error) => console.log(error)) 
 }
+
+export function getPosterImage(name) {
+    return BASE_URL_IMAGE + name;
+}

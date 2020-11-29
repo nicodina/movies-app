@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native'
+import {getPosterImage} from '../services/tmdb.connector'
 
 export default function MovieItem(props) {
 
@@ -7,7 +8,7 @@ export default function MovieItem(props) {
 
     return (
       <View style={styles.main_container} >
-        <Image style={styles.image} source={{uri: 'image'}}/>
+        <Image style={styles.image} source={{uri: getPosterImage(movie.poster_path)}}/>
         <View style={styles.content}>
             <View style={styles.first_row_right}>
                 <Text style={[styles.horizontal_container_left, styles.text, {flexWrap: 'wrap', padding: 2}]}>{movie.title}</Text>
